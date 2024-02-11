@@ -1,0 +1,16 @@
+Timeouts
+1. Global Timeouts
+2. action Timeouts
+3. navigation Timeouts
+4. spec level test.setTimeout()
+5. explicit Timeouts eg: ({timeout: 5000})
+
+waitForEventTimeout
+waitForSelector
+waitForTimeout 
+waitForrequest 
+waitForResponse
+
+page wait for 30secs
+expect assertions wait for 5 secs
+
