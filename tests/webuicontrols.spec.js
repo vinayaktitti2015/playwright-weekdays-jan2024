@@ -5,8 +5,8 @@ test.describe("globalsqa page test", () => {
   // hooks or annotations
   test.beforeEach(async ({ page }) => {
     test.setTimeout(10000)
-    await page.goto("/samplepagetest/");
-
+    await page.goto("https://www.globalsqa.com/samplepagetest/");
+    page.waitForLoadState("domcontentloaded")
     try {
       await page.waitForTimeout(3000); // static timeout
       await page

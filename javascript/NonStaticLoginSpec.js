@@ -1,4 +1,4 @@
-import LoginPage from "../javascript/loginClass.js";
+import LoginPage from "./loginClass.js";
 //import { waitFor, click, type } from "../javascript/utils";
 
 function loginTests() {

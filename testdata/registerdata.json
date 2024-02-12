@@ -1,0 +1,9 @@
+{
+    "firstname": "john",
+    "lastname": "doe",
+    "email": "johndoe123@yahoo.com",
+    "company": "google",
+    "password": "Test@1234",
+    "result": "Your registration completed"
+}
+
