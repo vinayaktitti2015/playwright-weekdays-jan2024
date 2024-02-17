@@ -1,9 +1,11 @@
 import { expect } from "@playwright/test";
 import { BaseClass } from "./BaseClass";
-import data from "../testdata/registerdata.json";
+// import data from "../testdata/registerdata.json";
 // import {faker} from "@faker-js/faker";
+import 'dotenv/config';
+import fs from "fs";
 
-export class RegisterPage {
+exports.RegisterPage = class RegisterPage {
   /**
    * @param {import('@playwright/test').Page} page
    */
@@ -16,19 +18,27 @@ export class RegisterPage {
     this.getFirstName = page.locator("#FirstName");
     this.getLastName = page.locator("#LastName");
     this.getEmail = page.locator("#Email");
-    this.getNewsLetter = page.locator("#Newsletter");
-    this.getPassword = page.locator("#Password");
+    this.getNewsLetter = page.locator("label[id$='18']"); //single quotes
+    this.getPassword = page.locator("#Password"); // double quotes
     this.getConfirmPassword = page.locator("#ConfirmPassword");
     this.getRegisterBtn = page.locator("#register-button");
     this.getResult = page.locator(".result");
+    // await expect(page.getByText(/welcome, [A-Za-z]+$/i)).toBeVisible();
+
+  }
+
+  async openbrowser() {
+    await this.page.goto(process.env.BASEURL, {waitUntil: "networkidle"});
   }
 
   // stateless methods/functions for signup feature
   async clickRegisterLink() {
+    this.page.waitForTimeout(5000)
     await this.getRegisterLink.click();
   }
 
   async selectGender() {
+    await this.page.waitForLoadState("domcontentloaded")
     await this.getGender.check();
   }
 
@@ -72,23 +82,17 @@ export class RegisterPage {
   async userRegisterSuccessfully() {
     //const email = faker.internet.email();
 
-    await this.clickRegisterLink();
-    await this.selectGender();
-    await this.enterFirstname(data.firstname);
-    await this.enterLastname(data.lastname);
-    await this.enterEmail(data.email);
-    await this.selectNewsletter();
-    await this.enterPassword(data.password);
-    await this.enterConfirmPassword(data.password);
-    await this.clickRegisterBtn();
-    await this.verifyResult(data.result);
+    fs.readFile("../testdata/registerdata.json", async (error, data) => {
+      await this.clickRegisterLink();
+      await this.selectGender();
+      await this.enterFirstname(data.firstname);
+      await this.enterLastname(data.lastname);
+      await this.enterEmail(data.email);
+      await this.selectNewsletter();
+      await this.enterPassword(data.password);
+      await this.enterConfirmPassword(data.password);
+      await this.clickRegisterBtn();
+      await this.verifyResult(data.result);
+    });
   }
 }
-
-
-// pattern structure for
-/**
- * constants
- * defining the locator values
- * created the page functions in the same class/file
- */

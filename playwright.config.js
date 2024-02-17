@@ -13,7 +13,9 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./specs",
   globalTimeout: 60 * 60 * 1000,
-  
+  timeout: 3 * 60 * 1000,
+  //globalSetup: "./global.setup.js",
+
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -36,6 +38,11 @@ export default defineConfig({
     trace: "on-first-retry",
     screenshot: "on",
     video: "on",
+    extraHTTPHeaders: {
+      "Content-Type": "application/json",
+      Authorization: "Basic jsssdsdj343434333sd",
+      AWSAccessKeyId: "j3i43ij332i2j332",
+    },
   },
 
   /* Configure projects for major browsers */
@@ -43,6 +50,7 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
+      dependencies: ["setup"],
     },
 
     {
@@ -54,7 +62,10 @@ export default defineConfig({
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
     },
-    
+    {
+      name: "setup",
+      testMatch: /global\.setup\.js/,
+    },
 
     /* Test against mobile viewports. */
     // {

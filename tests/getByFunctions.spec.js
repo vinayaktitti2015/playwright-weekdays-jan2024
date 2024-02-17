@@ -16,9 +16,7 @@ test("getByPlaceholder usecase", async ({ page }) => {
 
 test("handle nth element", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/");
-
   await page.locator("ul li a").nth(5).click();
-
   await expect(page).toHaveURL("https://the-internet.herokuapp.com/checkboxes");
 });
 

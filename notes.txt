@@ -14,3 +14,24 @@ waitForResponse
 page wait for 30secs
 expect assertions wait for 5 secs
 
+Selectors
+id 
+class
+attributes
+contains
+starts-with
+ends-with 
+or expression 
+traversing eg: nth-child, nth-of-type
+
+data-test-id 
+
+default functions 
+getByText
+getByPlaveholder
+getByDatatestid
+getByLabel 
+getByTitle 
+getByRole
+
+

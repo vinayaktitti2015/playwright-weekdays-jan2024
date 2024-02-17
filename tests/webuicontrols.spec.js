@@ -3,12 +3,16 @@ import { test, expect } from "@playwright/test";
 // test suite
 test.describe("globalsqa page test", () => {
   // hooks or annotations
+
   test.beforeEach(async ({ page }) => {
-    test.setTimeout(10000)
+    page.on("pageerror", (error) => {
+      console.error("page error", error);
+    });
     await page.goto("https://www.globalsqa.com/samplepagetest/");
-    page.waitForLoadState("domcontentloaded")
+    page.waitForLoadState("domcontentloaded");
+
     try {
-      await page.waitForTimeout(3000); // static timeout
+      await page.waitForEvent("popup"); // static timeout
       await page
         .locator("button[aria-label='Consent'] p[class='fc-button-label']")
         .click();
@@ -16,6 +20,7 @@ test.describe("globalsqa page test", () => {
       console.warn("Popup not exist on page");
     }
   });
+
 
   test("should fill the form successfully", async ({ page }) => {
     // upload file
@@ -53,7 +58,6 @@ test.describe("globalsqa page test", () => {
     await page.locator("button[type='submit']").click();
 
     // results page
-
     await page.waitForLoadState("domcontentloaded");
     await expect(page).toHaveTitle("Sample Page Test - GlobalSQA");
     const message = await page
