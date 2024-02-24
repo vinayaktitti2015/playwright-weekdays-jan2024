@@ -25,7 +25,7 @@ test.describe("globalsqa page test", () => {
       .setInputFiles("./testdata/sample.pdf");
 
     // input data
-    await expect.soft(page.locator('[name$="invalid"]')).toBeVisible();
+    await expect.soft(page.locator('[name$="name"]')).toBeVisible();
     await page.locator('[name$="name"]').fill("james doe");
     await page.locator('[name$="email"]').fill("james@yahoo.com");
     await page

@@ -9,18 +9,19 @@ test.describe("globalsqa page test", () => {
       console.error("page error", error);
     });
     await page.goto("https://www.globalsqa.com/samplepagetest/");
-    page.waitForLoadState("domcontentloaded");
-
+    await page.waitForTimeout(5000)
     try {
-      await page.waitForEvent("popup"); // static timeout
-      await page
-        .locator("button[aria-label='Consent'] p[class='fc-button-label']")
-        .click();
+      page.on("popup", async (popup) => {
+        popup.waitForLoadState();
+        await page
+          .locator("button[aria-label='Consent'] p[class='fc-button-label']")
+          .click();
+      
+      });
     } catch (e) {
       console.warn("Popup not exist on page");
     }
   });
-
 
   test("should fill the form successfully", async ({ page }) => {
     // upload file

@@ -23,7 +23,7 @@ userData.forEach((data) => {
     await page.goto(
       "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
     );
-
+    await page.waitForLoadState("domcontentloaded")
     await page.getByPlaceholder("Username").fill(data.username);
     await page.getByPlaceholder("Password").fill(data.password);
     await page.getByRole("button", { name: "Login" }).last().click()
